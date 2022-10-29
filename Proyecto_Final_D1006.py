@@ -11,8 +11,10 @@ pip install lxml
 
 from bs4 import BeautifulSoup
 
-#MODIFICAR EL NOMBRE DEL ARCHIVO CON EL NOMBRE FINAL DEL MISMO:
-with open('NOMBRE DEL ARCHIVO HTML LOCAL', 'r', encoding="utf-8") as html_file:
+#MODIFICAR EL NOMBRE DEL ARCHIVO CON LA RUTA:
+with open('C:/Users/angel/PROYECTO FINAL/HTML/pagina1.html', 'r', encoding="utf-8") as html_file:
      content = html_file.read()
 
 soup = BeautifulSoup(content, 'lxml')
+
+print(soup)
