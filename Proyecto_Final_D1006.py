@@ -88,33 +88,31 @@ for file in glob.glob("C:/Users/angel/PROYECTO INTEGRADOR D1006/D1006/HTML/*.htm
         #price1.append(price)
         sale_price1.append(sale_price)
 
-#print(product1)
-
-
 import pandas as pd
 
 dict = {'product': product1, 'brand': brand1, 'seller': seller1, 'financing_amount': financing_amount1,'sale_price': sale_price1}
 df = pd.DataFrame((dict), index=list(range(len(product1))))
 df.to_csv('database.csv')
 
-#print(df)
+#print(df) control de la tabla
 
 empdata = pd.read_csv('C:/Users/angel/PROYECTO INTEGRADOR D1006/D1006/.ipynb_checkpoints/database.csv', index_col=False, delimiter = ',')
 empdata.head()
 
-#print(empdata)
+#print(empdata) control
 
+#Usamos modulos mysql.connector para conectar a la base de datos
 import mysql.connector as msql
 from mysql.connector import Error
 try:
     conn = msql.connect(host='localhost', user='root',  
-                        password='adolfito06')#give ur username, password
+                        password='***')#datos de acceso del usuario
     if conn.is_connected():
         cursor = conn.cursor()
         cursor.execute("CREATE DATABASE dbproyecto")
-        print("Database is created")
+        print("Base de datos creada")
 except Error as e:
-    print("Error while connecting to MySQL", e)
+    print("Error al conectar con MySQL", e)
 
 import mysql.connector as msql
 from mysql.connector import Error
@@ -124,19 +122,19 @@ try:
         cursor = conn.cursor()
         cursor.execute("select database();")
         record = cursor.fetchone()
-        print("You're connected to database: ", record)
+        print("Estás conectado a la base de datos: ", record)
         cursor.execute('DROP TABLE IF EXISTS dbproyecto;')
-        print('Creating table....')
-# in the below line please pass the create table statement which you want #to create
+        print('Creando tabla....')
+# Se crea la tabla con las caracteristicas correspondientes: nombres, tipo de datos y extensión
         cursor.execute("CREATE TABLE proyecto (id VARCHAR (3), products VARCHAR(100), brands VARCHAR(15), seller VARCHAR(20), amount FLOAT(12), price FLOAT(12))")
-        print("Table is created....")
-        #loop through the data frame
+        print("La tabla ha sido creada....")
+        #iterar cada fila del archivo csv
         for i,row in empdata.iterrows():
-            #here %S means string values 
+            #%s significa completar cada columna con los valores del DF
             sql = "INSERT INTO dbproyecto.proyecto VALUES (%s,%s,%s,%s,%s,%s)"
             cursor.execute(sql, tuple(row))
-            print("Record inserted")
-            # the connection is not auto committed by default, so we must commit to save our changes
+            print("Registro insertado")
+            # Confirma para guardar los cambios
             conn.commit()
 except Error as e:
-            print("Error while connecting to MySQL", e)
+            print("Error al conectar MySQL", e)
