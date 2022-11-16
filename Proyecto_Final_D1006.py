@@ -77,8 +77,6 @@ for file in glob.glob("C:/Users/angel/PROYECTO INTEGRADOR D1006/D1006/HTML/*.htm
 
 #print(datos) como control
 
-import csv
-
 import pandas as pd
 
 #Se crea el dataframe
