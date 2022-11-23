@@ -11,5 +11,5 @@ Integrantes:
 - Victoria Valeria del Carmen
 - Turrin Margarita
 - Victoria Eliana
-- Fernandez Ibarrola
+- Fernandez Ibarrola Analía
 - Villarreal Barroso Angel
